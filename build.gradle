@@ -1,0 +1,19 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.1.0' apply false
+    id 'com.android.library' version '7.1.0' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+
+//repositories {
+//    mavenCentral()
+//}
+//
+//dependencies {
+//    implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
+//    implementation 'com.google.zxing:core:3.3.0'
+//}
