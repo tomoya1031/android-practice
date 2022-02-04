@@ -2,52 +2,60 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.CaptureActivity;
+import com.journeyapps.barcodescanner.CaptureManager;
+import com.journeyapps.barcodescanner.CompoundBarcodeView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class QrReadView extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+
+    private CompoundBarcodeView mBarcodeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.qr_read_view);
 
-        Button bt = findViewById(R.id.button);
-//        Listener listener = new Listener();
-//        bt.setOnClickListener(listener);
-        bt.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplication(), QrRead.class);
-            startActivity(intent);
+        mBarcodeView = findViewById(R.id.barcodeView);
+        mBarcodeView.decodeSingle(new BarcodeCallback() {
+            @Override
+            public void barcodeResult(BarcodeResult result) {
+
+                TextView textView = findViewById(R.id.textView);
+                textView.setText("aaa");
+            }
         });
+//        bt.setOnClickListener(v -> {
+//            Intent intent = new Intent(getApplication(), SubActivity.class);
+//            startActivity(intent);
+//        });
     }
 
-    private class Listener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            scanBarcode(view);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mBarcodeView.resume();
     }
 
-    public void scanBarcode(View view) {
-        new IntentIntegrator(this).initiateScan();
+    @Override
+    public void onPause() {
+        super.onPause();
+        mBarcodeView.pause();
     }
 
     @Override
