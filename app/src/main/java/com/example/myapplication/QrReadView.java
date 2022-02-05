@@ -40,6 +40,8 @@ public class QrReadView extends AppCompatActivity {
 //                    Intent intent = new Intent(getApplication(), QrRead.class);
 //                    startActivity(intent);
 //                }
+                Intent intent = new Intent(getApplication(), QrReadView.class);
+                startActivity(intent);
             }
         });
 //        bt.setOnClickListener(v -> {

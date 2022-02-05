@@ -4,6 +4,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="hello_world">hello_world</string>
+    <string name="err_01">数値を入力して下さい</string>
+    <string name="err_02">0以上の数値を入力して下さい</string>
+    <string name="err_03">正の整数値を入力して下さい</string>
     <string-array name="temp">
         <item>
             日付：$time\

@@ -31,12 +31,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QRカメラ起動"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="211dp" />
+    <LinearLayout
+        android:id="@+id/qrReaderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="64dp">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QRカメラ起動"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="56dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="金額テスト"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="181dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

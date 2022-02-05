@@ -4,10 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/layout/Point.xml" value="0.3500905797101449" />
+        <entry key="app/src/main/res/layout/Total.xml" value="0.3500905797101449" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.30932971014492755" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3500905797101449" />
+        <entry key="app/src/main/res/layout/point.xml" value="0.19114583333333332" />
+        <entry key="app/src/main/res/layout/price.xml" value="0.16576086956521738" />
         <entry key="app/src/main/res/layout/qr_read.xml" value="0.16576086956521738" />
         <entry key="app/src/main/res/layout/qr_read_view.xml" value="0.20643363728470113" />
+        <entry key="app/src/main/res/layout/total.xml" value="0.3500905797101449" />
       </map>
     </option>
   </component>
