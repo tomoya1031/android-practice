@@ -31,40 +31,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button bt = findViewById(R.id.button);
-//        Listener listener = new Listener();
-//        bt.setOnClickListener(listener);
         bt.setOnClickListener(v -> {
             Intent intent = new Intent(getApplication(), QrRead.class);
             startActivity(intent);
         });
     }
-
-    private class Listener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            scanBarcode(view);
-        }
-    }
-
-    public void scanBarcode(View view) {
-        new IntentIntegrator(this).initiateScan();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-                Log.d("MainActivity", "Cancelled scan");
-                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
-            } else {
-                Log.d("MainActivity", "Scanned");
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-            }
-        } else {
-            // This is important, otherwise the result will not be passed to the fragment
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
-
 }

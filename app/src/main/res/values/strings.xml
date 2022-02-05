@@ -4,4 +4,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="hello_world">hello_world</string>
+    <string-array name="temp">
+        <item>
+            日付：$time\
+            QR：$qr
+        </item>
+        <item>
+            レシート内容記載
+        </item>
+    </string-array>
 </resources>

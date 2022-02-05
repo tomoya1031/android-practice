@@ -19,6 +19,12 @@
             android:layout_width="wrap_content"
             android:layout_height="513dp" />
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:text="@string/hello_world" />
+
         <LinearLayout
             android:id="@+id/qrReaderLayout2"
             android:layout_width="match_parent"
@@ -39,25 +45,6 @@
                 android:layout_height="wrap_content"
                 android:text="1" />
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/qrReaderLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="100dp"
-        tools:layout_editor_absoluteY="900dp">
-
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
