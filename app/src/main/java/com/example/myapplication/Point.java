@@ -13,6 +13,8 @@ import com.example.myapplication.Util.ErrorCheckUtil;
 import com.example.myapplication.Util.TempDataUtil;
 import com.example.myapplication.dto.PriceDto;
 
+import java.math.BigDecimal;
+
 
 public class Point extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,7 +40,7 @@ public class Point extends AppCompatActivity implements View.OnClickListener {
         dto = (PriceDto)intent.getSerializableExtra("price_dto");
 
         if(dto != null){
-            editTextPoint.setText(dto.getPoint());
+            editTextPoint.setText(dto.getPoint().toString());
         }
 
         findViewById(R.id.button1).setOnClickListener(this);
@@ -58,13 +60,13 @@ public class Point extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.button2:
                 // ボタン「TEST」がタップされたとき
-                String text = editTextPoint.getText().toString();
-                String err =  ErrorCheckUtil.isNull(text);
+                String value = editTextPoint.getText().toString();
+                String err =  ErrorCheckUtil.isNull(value);
                 if(err != null){
                     editTextPoint.setError(err);
                     return;
                 }
-                dto.setPrice(text);
+                dto.setPoint(new BigDecimal(value));
                 intent = new Intent(getApplication(), Total.class);
                 intent.putExtra("price_dto",dto);
                 break;

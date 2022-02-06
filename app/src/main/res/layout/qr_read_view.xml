@@ -23,7 +23,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="46dp"
-            android:text="@string/hello_world" />
+            android:text="@string/qr_read" />
 
         <LinearLayout
             android:id="@+id/qrReaderLayout2"
@@ -37,13 +37,7 @@
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1" />
+                android:text="終了" />
         </LinearLayout>
     </LinearLayout>
 

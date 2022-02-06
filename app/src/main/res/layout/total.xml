@@ -76,6 +76,27 @@
             android:text="次"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="253dp" />
+        <TextView
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="支払金額"
+            />
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:text="支払金額数値"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteY="32dp" />
 
         <Button
             android:id="@+id/button3"

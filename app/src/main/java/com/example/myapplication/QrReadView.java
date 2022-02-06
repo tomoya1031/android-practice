@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,14 +41,15 @@ public class QrReadView extends AppCompatActivity {
 //                    Intent intent = new Intent(getApplication(), QrRead.class);
 //                    startActivity(intent);
 //                }
-                Intent intent = new Intent(getApplication(), QrReadView.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplication(), QrReadView.class);
+//                startActivity(intent);
             }
         });
-//        bt.setOnClickListener(v -> {
-//            Intent intent = new Intent(getApplication(), SubActivity.class);
-//            startActivity(intent);
-//        });
+        Button bt = findViewById(R.id.button1);
+        bt.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplication(), MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override

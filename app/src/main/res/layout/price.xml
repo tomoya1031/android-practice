@@ -45,8 +45,9 @@
             app:layout_constraintTop_toBottomOf="@+id/text2"
             android:inputType="number"
             android:hint="0円以上"
-            android:paddingLeft="5dp"
-            />
+            android:paddingLeft="5dp">
+            <requestFocus/>
+        </EditText>
 
         <Button
             android:id="@+id/button1"

@@ -15,6 +15,8 @@ import com.example.myapplication.dto.PriceDto;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
+
 
 public class Total extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,8 +32,10 @@ public class Total extends AppCompatActivity implements View.OnClickListener {
 
         TextView editTextPrice = findViewById(R.id.price);
         TextView editTextPoint = findViewById(R.id.point);
-        editTextPrice.setText(dto.getPrice());
-        editTextPoint.setText(dto.getPoint());
+        TextView editTextTotalPoint = findViewById(R.id.total_price);
+        editTextPrice.setText(dto.getPrice().toString());
+        editTextPoint.setText(dto.getPoint().toString());
+        editTextTotalPoint.setText(dto.getPrice().subtract(dto.getPoint()).toString());
 
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);

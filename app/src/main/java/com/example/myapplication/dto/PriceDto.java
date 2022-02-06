@@ -1,34 +1,35 @@
 package com.example.myapplication.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class PriceDto implements Serializable {
-    private String price;
-    private String point;
+    private BigDecimal price;
+    private BigDecimal point;
     private String qr;
 
     public PriceDto() {
     }
 
-    public PriceDto(String price, String point, String qr) {
+    public PriceDto(BigDecimal price, BigDecimal point, String qr) {
         this.price = price;
         this.point = point;
         this.qr = qr;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public String getPoint() {
+    public BigDecimal getPoint() {
         return point;
     }
 
-    public void setPoint(String point) {
+    public void setPoint(BigDecimal point) {
         this.point = point;
     }
 

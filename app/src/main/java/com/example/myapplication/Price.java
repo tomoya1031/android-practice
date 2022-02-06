@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Util.ErrorCheckUtil;
 import com.example.myapplication.dto.PriceDto;
 
+import java.math.BigDecimal;
+
 
 public class Price extends AppCompatActivity implements View.OnClickListener {
 
@@ -28,11 +30,17 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.price);
 
-        dto = new PriceDto();
+        if(dto == null){
+            dto = new PriceDto();
+        }
         editTextPrice = findViewById(R.id.edit_text_price);
 
         Intent intent = getIntent();
         dto = (PriceDto)intent.getSerializableExtra("price_dto");
+
+        if(dto != null){
+            editTextPrice.setText(dto.getPrice().toString());
+        }
 
         findViewById(R.id.button1).setOnClickListener(this);
         findViewById(R.id.button2).setOnClickListener(this);
@@ -51,16 +59,17 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
 
             case R.id.button2:
                 // ボタン「TEST」がタップされたとき
-                String text = editTextPrice.getText().toString();
-                String err =  ErrorCheckUtil.isNull(text);
+                String value = editTextPrice.getText().toString();
+                String err =  ErrorCheckUtil.isNull(value);
                 if(err != null){
                     editTextPrice.setError(err);
                     return;
                 }
                 if(dto == null){
                     dto = new PriceDto();
+                    dto.setPoint(BigDecimal.ZERO);
                 }
-                dto.setPrice(text);
+                dto.setPrice(new BigDecimal(value));
                 intent = new Intent(getApplication(), Total.class);
                 intent.putExtra("price_dto",dto);
                 break;
