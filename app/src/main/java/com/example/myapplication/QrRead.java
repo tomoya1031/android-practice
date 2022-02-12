@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.databinding.ActivityMainBinding;
-import com.journeyapps.barcodescanner.CaptureActivity;
 
 
 public class QrRead extends AppCompatActivity {
 
-    private CaptureActivity PortraitActivity;
+//    private CaptureActivity PortraitActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

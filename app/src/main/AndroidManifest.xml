@@ -30,11 +30,6 @@
         <activity android:name=".Price"/>
         <activity android:name=".Point"/>
         <activity android:name=".Total"/>
-
-        <activity
-            android:name="com.journeyapps.barcodescanner.CaptureActivity"
-            android:screenOrientation="fullSensor"
-            tools:replace="screenOrientation" />
     </application>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>

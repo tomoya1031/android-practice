@@ -1,24 +1,84 @@
+import org.gradle.internal.invocation.BuildAction
+
 plugins {
     id 'com.android.application'
 }
 
+
 android {
+    def _versionCode=0
+    def _major=0
+    def _minor=0
+    def _patch=0
+
+    def versionPropsFile = file('../version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        println build
+
+        _patch = versionProps['PATCH'].toInteger() + 1
+        _major = versionProps['MAJOR'].toInteger()
+        _minor = versionProps['MINOR'].toInteger()
+        _versionCode= versionProps['VERSION_CODE'].toInteger()+1
+        if(_patch==99)
+        {
+            _patch=0
+            _minor=_minor+1
+        }
+        if(_major==99){
+            _major=0
+            _major=_major+1
+        }
+
+        versionProps['MAJOR']=_major.toString()
+        versionProps['MINOR']=_minor.toString()
+        versionProps['PATCH']=_patch.toString()
+        versionProps['VERSION_CODE']=_versionCode.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+    }
+    else {
+        throw new GradleException("Could not read version.properties!")
+    }
+    def _versionName = "${_major}.${_versionCode}.${_minor}.${_patch}"
+
     compileSdk 32
 
     defaultConfig {
         applicationId "com.example.myapplication"
+        versionCode _versionCode
+        versionName _versionName
         minSdk 22
         targetSdk 32
-        versionCode 3
-        versionName "1.0.3"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "tier"
+
+    productFlavors {
+        app1 {
+            dimension "tier"
+            minSdk 21
+//            applicationId "com.example.app1"
+
+
+        }
+        app2 {
+            dimension "tier"
+            minSdk 22
+//            applicationIdSuffix ".app2"
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        a {
         }
     }
     compileOptions {
@@ -28,10 +88,26 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    sourceSets {
+        app1 {
+            java.srcDirs = ['src/app1/java']
+            res.srcDirs  = ['src/app1/res']
+            manifest.srcFile 'src/app1/AndroidManifest.xml'
+        }
+        app2 {
+            java.srcDirs = ['src/app2/java']
+            res.srcDirs  = ['src/app2/res']
+            manifest.srcFile 'src/app2/AndroidManifest.xml'
+        }
+    }
 }
 
 dependencies {
 
+    //jarファイル読み込みlibsに置く？
+//    demoCompile files('libs/ads.jar')
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -39,8 +115,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
-    implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
-    implementation 'com.google.zxing:core:3.3.0'
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0") { transitive = false }
+    implementation "com.google.zxing:core:3.3.0"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
