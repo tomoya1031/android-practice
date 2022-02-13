@@ -17,7 +17,7 @@ public class HogeService extends AppCompatActivity {
 
     private CompoundBarcodeView mBarcodeView ;
 
-    public void hoge(View view, TextView textView, Resources res) {
+    public void hoge(View view, TextView textView, Resources res, QrReadView a) {
 //        setContentView(R.layout.qr_read_view);
 //        mBarcodeView = findViewById(R.id.barcodeView);
         mBarcodeView = (CompoundBarcodeView) view;
@@ -26,7 +26,6 @@ public class HogeService extends AppCompatActivity {
             public void barcodeResult(BarcodeResult result) {
 
 //                TextView textView = findViewById(R.id.textView);
-
                 String[] temp = res.getStringArray(R.array.temp);
                 temp[0] = temp[0].replace("$time",new Date().toString())
                         .replace("$qr", result.getText());
@@ -39,6 +38,7 @@ public class HogeService extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
+        mBarcodeView.getStatusView().setText("QRコードをかざしてください");
     }
 
     public void hoge2(){

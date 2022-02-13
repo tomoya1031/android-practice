@@ -1,21 +1,13 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.Util.TempDataUtil;
 import com.example.myapplication.dto.PriceDto;
-
-import org.w3c.dom.Text;
-
-import java.math.BigDecimal;
 
 
 public class Total extends AppCompatActivity implements View.OnClickListener {

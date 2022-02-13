@@ -3,11 +3,10 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class QrReadView extends AppCompatActivity {
@@ -26,7 +25,7 @@ public class QrReadView extends AppCompatActivity {
                 View a = findViewById(R.id.barcodeView);
                 TextView textView = findViewById(R.id.textView);
                 Resources res = getResources();
-                hoge.hoge(a, textView, res);
+                hoge.hoge(a, textView, res, this);
 
                 break;
             case "app2":
