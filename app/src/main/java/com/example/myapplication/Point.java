@@ -8,7 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.dto.PriceDto;
-import com.example.myapplication.Util.ErrorCheckUtil;
+import com.example.myapplication.util.ErrorCheckUtil;
 
 import java.math.BigDecimal;
 

@@ -51,8 +51,8 @@ android {
         applicationId "com.example.myapplication"
         versionCode _versionCode
         versionName _versionName
-        minSdk 22
-        targetSdk 32
+        minSdk 23
+        targetSdk 23
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -61,14 +61,14 @@ android {
     productFlavors {
         app1 {
             dimension "tier"
-            minSdk 21
+            minSdk 23
 //            applicationId "com.example.app1"
 
 
         }
         app2 {
             dimension "tier"
-            minSdk 22
+            minSdk 23
 //            applicationIdSuffix ".app2"
         }
     }

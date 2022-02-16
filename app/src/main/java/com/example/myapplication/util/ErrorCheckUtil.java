@@ -1,7 +1,6 @@
-package com.example.myapplication.Util;
+package com.example.myapplication.util;
 
 import com.example.myapplication.MainActivity;
-import com.example.myapplication.Price;
 import com.example.myapplication.R;
 
 import java.util.regex.Pattern;
