@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.R;
 import com.example.myapplication.dto.PriceDto;
 import com.example.myapplication.util.ErrorCheckUtil;
 

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name="com.example.myapplication.MainActivity"
+            android:name="com.example.myapplication.views.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -21,15 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.myapplication.QrRead"
+        <activity android:name="com.example.myapplication.views.QrRead"
             android:label="テスト">
         </activity>
-        <activity android:name="com.example.myapplication.QrReadView"
+        <activity android:name="com.example.myapplication.views.QrReadView"
             android:label="QRコード読取">
         </activity>
-        <activity android:name="com.example.myapplication.Price"/>
-        <activity android:name="com.example.myapplication.Point"/>
-        <activity android:name="com.example.myapplication.Total"/>
+        <activity android:name="com.example.myapplication.views.Price"/>
+        <activity android:name="com.example.myapplication.views.Point"/>
+        <activity android:name="com.example.myapplication.views.Total"/>
     </application>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>

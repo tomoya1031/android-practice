@@ -1,6 +1,6 @@
 package com.example.myapplication.util;
 
-import com.example.myapplication.MainActivity;
+import com.example.myapplication.views.MainActivity;
 import com.example.myapplication.R;
 
 import java.util.regex.Pattern;

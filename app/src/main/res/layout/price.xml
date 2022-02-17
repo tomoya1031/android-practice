@@ -8,12 +8,13 @@
     android:paddingTop="?attr/actionBarSize">
 
     <LinearLayout
-        android:id="@+id/qrReaderLayout"
+        android:id="@+id/priceLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="64dp">
+        tools:layout_editor_absoluteY="64dp"
+        android:focusableInTouchMode="true">
         <TextView
             android:padding="5dp"
             android:id="@+id/text"

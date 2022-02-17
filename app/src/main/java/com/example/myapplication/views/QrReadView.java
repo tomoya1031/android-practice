@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.views;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -8,6 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.BuildConfig;
+import com.example.myapplication.HogeService;
+import com.example.myapplication.R;
 
 public class QrReadView extends AppCompatActivity {
 
