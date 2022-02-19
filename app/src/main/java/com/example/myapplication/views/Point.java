@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.dto.PriceDto;
-import com.example.myapplication.util.ErrorCheckUtil;
+import com.example.myapplication.utils.ErrorCheckUtil;
 
 import java.math.BigDecimal;
 

@@ -1,4 +1,4 @@
-package com.example.myapplication.util;
+package com.example.myapplication.utils;
 
 import com.example.myapplication.views.MainActivity;
 import com.example.myapplication.R;

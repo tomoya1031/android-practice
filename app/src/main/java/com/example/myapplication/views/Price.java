@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -12,9 +13,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
 import com.example.myapplication.R;
-import com.example.myapplication.util.ErrorCheckUtil;
 import com.example.myapplication.dto.PriceDto;
+import com.example.myapplication.models.apis.TestApi;
+import com.example.myapplication.utils.ErrorCheckUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.math.BigDecimal;
 
 
@@ -22,6 +29,7 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
 
     // 画面のデータを保持するDto
     private PriceDto dto;
+    private Handler handler = new Handler();
 
     // 金額
     private EditText editTextPrice;
@@ -33,10 +41,33 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
 
     private final String yen = "¥";
 
+    private static TestApi a = new TestApi();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.price);
+
+        //API呼び出し方お試し実装
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String response = "";
+                try {
+                    response = a.getAPI();
+                    JSONObject rootJSON = new JSONObject(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        System.out.println("a");
+                    }
+                });
+            }
+        });
+        thread.start();
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mainLayout = findViewById(R.id.priceLayout);
 
@@ -46,6 +77,7 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
         editTextPrice = findViewById(R.id.edit_text_price);
 
         // リスナーを登録
+//        editTextPrice.addTextChangedListener((TextWatcher) new TextWatcherUtil(editTextPrice));
         editTextPrice.addTextChangedListener(this);
         editTextPrice.setOnClickListener(this);
 
