@@ -16,13 +16,16 @@ import android.widget.LinearLayout;
 
 import com.example.myapplication.R;
 import com.example.myapplication.dto.PriceDto;
+import com.example.myapplication.dto.WeatherDto;
+import com.example.myapplication.dto.WindDto;
 import com.example.myapplication.models.apis.TestApi;
 import com.example.myapplication.utils.ErrorCheckUtil;
+import com.example.myapplication.utils.JsonUtil;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 
 public class Price extends Activity implements View.OnClickListener , TextWatcher {
@@ -41,7 +44,7 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
 
     private final String yen = "¥";
 
-    private static TestApi a = new TestApi();
+    private static TestApi api = new TestApi();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +55,14 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String response = "";
                 try {
-                    response = a.getAPI();
-                    JSONObject rootJSON = new JSONObject(response);
+                    JsonUtil json = api.getAPI();
+                    if(json.getStatusCode() == 200){
+                        WindDto c = (WindDto) json.convObject(json.getResult(), "wind", WindDto.class);
+                        List<WeatherDto> d = (List<WeatherDto>) json.convArrey(json.getResult(), "weather", WeatherDto.class);
+                    } else {
+                        //なんかエラーなら書く
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

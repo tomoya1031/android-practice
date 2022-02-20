@@ -1,13 +1,9 @@
 package com.example.myapplication.models.apis;
 
-import com.example.myapplication.dto.WeatherDto;
-import com.example.myapplication.dto.WindDto;
+import com.example.myapplication.utils.JsonUtil;
 import com.example.myapplication.utils.PropertyUtil;
-import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,8 +15,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class TestApi {
@@ -28,11 +22,12 @@ public class TestApi {
     private String urlPost = "今のところ予定なし";
     private PropertyUtil config = new PropertyUtil();
 
-    public String getAPI() throws JSONException {
+    public JsonUtil getAPI() throws JSONException {
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         String result = "";
         String str = "";
+        JsonUtil json = new JsonUtil();
         try {
             //configファイルからAPIKEY取得
             String key = (String) config.get("APIKEY");
@@ -57,40 +52,26 @@ public class TestApi {
             urlConnection.setDoInput(true);
             // 通信開始
             urlConnection.connect();
+
             // レスポンスコードを取得
-            int statusCode = urlConnection.getResponseCode();
-            // レスポンスコード200は通信に成功したことを表す
-            if (statusCode == 200){
-                inputStream = urlConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
-                // 1行ずつレスポンス結果を取得しstrに追記
+            json.setStatusCode(urlConnection.getResponseCode());
+            // レスポンス結果を取得
+            inputStream = urlConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+            result = bufferedReader.readLine();
+            while (result != null){
+                str += result;
                 result = bufferedReader.readLine();
-                while (result != null){
-                    str += result;
-                    result = bufferedReader.readLine();
-                }
-                bufferedReader.close();
             }
+            json.setResult(str);
+            bufferedReader.close();
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //配列の場合
-        JSONArray rootJSON = new JSONObject(str).getJSONArray("weather");
-        List<WeatherDto> wather = new ArrayList<>();
-        Gson gson = new Gson();
-        for (int i = 0; i < rootJSON.length(); i++) {
-            JSONObject data = rootJSON.getJSONObject(i);
-            wather.add(gson.fromJson(data.toString(), WeatherDto.class));
-        }
-
-        //通常パターン
-        String wind = new JSONObject(str).getString("wind");
-        WindDto t = gson.fromJson(wind, WindDto.class);
-
-        return str;
+        return json;
     }
 
     //postはとりあえず適当に書いただけ
