@@ -24,7 +24,7 @@
 <!--            android:exported="false" />-->
 
         <activity
-            android:name=".views.MainActivity"
+            android:name=".views.activitys.MainActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -34,14 +34,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.QrRead"
+            android:name=".views.activitys.QrRead"
             android:label="テスト" />
         <activity
-            android:name=".views.QrReadView"
+            android:name=".views.activitys.QrReadView"
             android:label="QRコード読取" />
-        <activity android:name=".views.Price" />
-        <activity android:name=".views.Point" />
-        <activity android:name=".views.Total" />
+        <activity android:name=".views.activitys.Price" />
+        <activity android:name=".views.activitys.Point" />
+        <activity android:name=".views.activitys.Total" />
     </application>
 
 </manifest>

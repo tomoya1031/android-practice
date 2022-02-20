@@ -1,6 +1,6 @@
 package com.example.myapplication.utils;
 
-import com.example.myapplication.views.MainActivity;
+import com.example.myapplication.views.activitys.MainActivity;
 import com.example.myapplication.R;
 
 import java.util.regex.Pattern;
@@ -22,6 +22,21 @@ public class ErrorCheckUtil {
             return errMessage = sInstance.getInstance().getString(R.string.err_03);
         }
         if (Integer.valueOf(value) <= 0) {
+            return errMessage = sInstance.getInstance().getString(R.string.err_02);
+        }
+        return errMessage;
+    }
+
+    /**
+     * 正の整数以外・０未満の場合エラーメッセージ返却
+     * @param value
+     */
+    public static String isNum(String value) {
+        String errMessage = null;
+        if(!Pattern.compile("^[0-9]+$").matcher(value).matches()){
+            return errMessage = sInstance.getInstance().getString(R.string.err_03);
+        }
+        if (Integer.valueOf(value) < 0) {
             return errMessage = sInstance.getInstance().getString(R.string.err_02);
         }
         return errMessage;

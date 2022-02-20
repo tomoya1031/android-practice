@@ -1,11 +1,10 @@
-package com.example.myapplication.views;
+package com.example.myapplication.views.activitys;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -21,21 +20,31 @@ import com.example.myapplication.dto.WindDto;
 import com.example.myapplication.models.apis.TestApi;
 import com.example.myapplication.utils.ErrorCheckUtil;
 import com.example.myapplication.utils.JsonUtil;
+import com.example.myapplication.utils.PointUtil;
+import com.example.myapplication.utils.PriceUtil;
+import com.example.myapplication.utils.TextWatcherUtil;
 
 import org.json.JSONException;
 
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
 import java.util.List;
 
 
-public class Price extends Activity implements View.OnClickListener , TextWatcher {
+public class Price extends Activity implements View.OnClickListener {
+
+    private static final PriceUtil priceUtil = new PriceUtil();
+
+    private static final PointUtil pointUtil = new PointUtil();
 
     // 画面のデータを保持するDto
     private PriceDto dto;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
     // 金額
     private EditText editTextPrice;
+    // ポイント
+    private EditText editTextPoint;
 
     // キーボード表示を制御するためのオブジェクト
     InputMethodManager inputMethodManager;
@@ -57,7 +66,7 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
             public void run() {
                 try {
                     JsonUtil json = api.getAPI();
-                    if(json.getStatusCode() == 200){
+                    if(json.getStatusCode() == HttpURLConnection.HTTP_OK){
                         WindDto c = (WindDto) json.convObject(json.getResult(), "wind", WindDto.class);
                         List<WeatherDto> d = (List<WeatherDto>) json.convArrey(json.getResult(), "weather", WeatherDto.class);
                     } else {
@@ -82,11 +91,13 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
             dto = new PriceDto();
         }
         editTextPrice = findViewById(R.id.edit_text_price);
+        editTextPoint = findViewById(R.id.edit_text_point);
 
         // リスナーを登録
-//        editTextPrice.addTextChangedListener((TextWatcher) new TextWatcherUtil(editTextPrice));
-        editTextPrice.addTextChangedListener(this);
+        editTextPrice.addTextChangedListener((TextWatcher) new TextWatcherUtil(editTextPrice));
+        editTextPoint.addTextChangedListener((TextWatcher) new TextWatcherUtil(editTextPoint));
         editTextPrice.setOnClickListener(this);
+        editTextPoint.setOnClickListener(this);
 
         editTextPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -95,7 +106,20 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
                     editTextPrice.post(new Runnable() {
                         @Override
                         public void run() {
-                            moveCursor(-1);
+                            priceUtil.moveCursor(-1, editTextPrice);
+                        }
+                    });
+                }
+            }
+        });
+        editTextPoint.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    editTextPoint.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            pointUtil.moveCursor(-1, editTextPoint);
                         }
                     });
                 }
@@ -120,11 +144,19 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
      * @param event
      */
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-            moveCursor(-1);
+            priceUtil.moveCursor(-1, editTextPrice);
+            pointUtil.moveCursor(-1, editTextPoint);
         } else if(keyCode == KeyEvent.KEYCODE_DPAD_RIGHT){
-            moveCursor(1);
+            priceUtil.moveCursor(1, editTextPrice);
+            pointUtil.moveCursor(1, editTextPoint);
+        } else if(keyCode == KeyEvent.KEYCODE_ENTER){
+            // キーボードを隠す
+            inputMethodManager.hideSoftInputFromWindow(mainLayout.getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+            // 背景にフォーカスを移す
+            mainLayout.requestFocus();
         }
         return super.onKeyUp(keyCode, event);
     }
@@ -157,94 +189,48 @@ public class Price extends Activity implements View.OnClickListener , TextWatche
                 break;
 
             case R.id.button2:
-                // ボタン「TEST」がタップされたとき
-                String value = editTextPrice.getText().toString();
-                value =  value.toString().replace(yen, "")
+                // ボタン「次へ」がタップされたとき
+                String priceValue = editTextPrice.getText().toString();
+                priceValue =  priceValue.replace(yen, "")
                         .replace(",", "");
-                String err =  ErrorCheckUtil.isNull(value);
-                if(err != null){
-                    editTextPrice.setError(err);
+                String priceErr =  ErrorCheckUtil.isNull(priceValue);
+
+                String pointValue = editTextPoint.getText().toString();
+                String pointErr = null;
+                if(pointValue != null && !pointValue.isEmpty()){
+                    pointValue =  pointValue.replace(",", "");
+                    pointErr =  ErrorCheckUtil.isNum(pointValue);
+                }
+                if(priceErr != null || pointErr != null){
+                    if(priceErr != null){
+                        editTextPrice.setError(priceErr);
+                    }
+                    if(pointErr != null){
+                        editTextPoint.setError(pointErr);
+                    }
                     return;
                 }
                 if(dto == null){
                     dto = new PriceDto();
+                }
+                if(pointValue != null && !pointValue.isEmpty()){
+                    dto.setPoint(new BigDecimal(pointValue).multiply(new BigDecimal(100)));
+                } else {
                     dto.setPoint(BigDecimal.ZERO);
                 }
-                dto.setPrice(new BigDecimal(value));
+                dto.setPrice(new BigDecimal(priceValue));
                 intent = new Intent(getApplication(), Total.class);
                 intent.putExtra("price_dto",dto);
                 startActivity(intent);
                 break;
             case R.id.edit_text_price:
-                moveCursor(-1);
+                priceUtil.moveCursor(-1, editTextPrice);
+                break;
+            case R.id.edit_text_point:
+                pointUtil.moveCursor(-1, editTextPoint);
                 break;
         }
     }
 
-    /**
-     * カンマ、円マークの箇所にカーソル選択できない対応
-     * @param sub
-     */
-    public void moveCursor(int sub){
-        if(editTextPrice.getText().toString() != null && !editTextPrice.getText().toString().isEmpty()){
-            if(editTextPrice.getSelectionStart() == 0){
-                editTextPrice.setSelection(1);
-            } else if(editTextPrice.getText().length() >= 6){
-                int i = editTextPrice.getText().length() - 3;
-                if(i == editTextPrice.getSelectionStart()){
-                    editTextPrice.setSelection(i + sub);
-                } else {
-                    editTextPrice.setSelection(editTextPrice.getSelectionStart());
-                }
-            }
-        }
-    }
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
-
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
-
-    /**
-     * テキストに入力された時の処理
-     * @param editable
-     */
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if(editable.toString() != null && !editable.toString().isEmpty()){
-            editTextPrice.removeTextChangedListener(this);
-            if(editable.toString().length() == 1){
-                if(editable.toString().equals(yen)){
-                    editTextPrice.setText(null);
-                } else {
-                    editTextPrice.setText(yen + editable.toString());
-                    editTextPrice.setSelection(editTextPrice.getText().toString().length());
-                }
-            } else{
-                int i = editTextPrice.getSelectionStart();
-
-                String value =  editable.toString().replace(yen, "")
-                        .replace(",", "");
-
-                editTextPrice.setText(yen + String.format("%,d", Integer.valueOf(value)));
-                if(i == editable.toString().length()) {
-                    editTextPrice.setSelection(editTextPrice.getText().toString().length());
-                } else if(editTextPrice.getText().toString().length() == 4 &&
-                        (editable.toString().contains(",") && i >= 2)){
-                    editTextPrice.setSelection(i - 1);
-                } else if(editTextPrice.getText().toString().length() == 6 &&
-                        (!editable.toString().contains(",") && i >= 1)) {
-                    editTextPrice.setSelection(i + 1);
-                } else if(i == 0) {
-                    editTextPrice.setSelection(1);
-                } else {
-                    editTextPrice.setSelection(i);
-                }
-            }
-            editTextPrice.addTextChangedListener(this);
-        }
-    }
 }

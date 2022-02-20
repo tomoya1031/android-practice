@@ -1,4 +1,4 @@
-package com.example.myapplication.views;
+package com.example.myapplication.views.activitys;
 
 import android.content.Intent;
 import android.content.res.Resources;
