@@ -1,11 +1,13 @@
 package com.example.myapplication.utils;
 
-import android.os.Handler;
 import android.widget.EditText;
+
+import com.example.myapplication.R;
+import com.example.myapplication.views.activitys.MainActivity;
 
 public class PointUtil {
 
-    private boolean flg = true;
+    static MainActivity sInstance = new MainActivity();
 
     /**
      * テキストに入力された時の処理
@@ -17,31 +19,11 @@ public class PointUtil {
         if(value != null && !value.isEmpty()) {
            if(value.length() == 6){
                 //上限を超えて入力した場合は５秒間エラー表示する
-                int i = view.getSelectionStart();
-                view.setError("999,900P以上入力できません");
-                view.setText(beforeValue);
-                view.setSelection(i - 1);
-                if(flg){
-                    flg = false;
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.setError(null);
-                            flg = true;
-                        }
-                    }, 5000);
-                }
+               ErrorCheckUtil.inputOver(view, beforeValue, sInstance.getInstance().getString(R.string.err_07));
             } else{
                 int i = view.getSelectionStart();
 
-                String point =  value.replace(",", "");
-
-                point= String.format("%,d", Integer.valueOf(point) * 100);
-                if(!point.equals("0")){
-                    point = point.substring(0, point.length()-2);
-                }
-                view.setText(point);
+                view.setText(viewFormat(dtoFormat(value)));
                 if(i == value.length()) {
                     view.setSelection(view.getText().toString().length());
                 } else if(value.substring(0,1).equals("0") && value.length() > 1){
@@ -70,5 +52,30 @@ public class PointUtil {
                 }
             }
         }
+    }
+
+    /**
+     * ポイント画面表示用変換処理
+     * @param value
+     */
+    public String viewFormat(String value){
+        if(value != null){
+            value= String.format("%,d", Integer.valueOf(value) * 100);
+            if(!value.equals("0")){
+                value = value.substring(0, value.length() - 2);
+            }
+        }
+        return value;
+    }
+
+    /**
+     * 金額登録変換処理
+     * @param value
+     */
+    public String dtoFormat(String value){
+        if(value != null){
+            value = value.replace(",", "");
+        }
+        return value;
     }
 }

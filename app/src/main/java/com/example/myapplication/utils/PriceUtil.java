@@ -1,9 +1,13 @@
 package com.example.myapplication.utils;
 
-import android.os.Handler;
 import android.widget.EditText;
 
+import com.example.myapplication.R;
+import com.example.myapplication.views.activitys.MainActivity;
+
 public class PriceUtil {
+
+    static MainActivity sInstance = new MainActivity();
 
     private final String yen = "¥";
 
@@ -27,28 +31,11 @@ public class PriceUtil {
                 }
             } else if(value.length() == 9){
                 //上限を超えて入力した場合は５秒間エラー表示する
-                int i = view.getSelectionStart();
-                view.setError("¥999,999以上入力できません");
-                view.setText(beforeValue);
-                view.setSelection(i -1);
-                if(flg){
-                    flg = false;
-                    final Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            view.setError(null);
-                            flg = true;
-                        }
-                    }, 5000);
-                }
+                ErrorCheckUtil.inputOver(view, beforeValue, sInstance.getInstance().getString(R.string.err_06));
             } else{
                 int i = view.getSelectionStart();
 
-                String price =  value.replace(yen, "")
-                        .replace(",", "");
-
-                view.setText(yen + String.format("%,d", Integer.valueOf(price)));
+                view.setText(viewFormat(dtoFormat(value)));
                 if(i == value.length()) {
                     view.setSelection(view.getText().toString().length());
                 } else if(view.getText().toString().length() == 4 &&
@@ -87,5 +74,30 @@ public class PriceUtil {
                 }
             }
         }
+    }
+
+    /**
+     * 金額画面表示用変換処理
+     * @param value
+     */
+    public String viewFormat(String value){
+        if(value != null){
+            StringBuilder buf = new StringBuilder();
+            buf.append(yen);
+            buf.append(String.format("%,d", Integer.valueOf(value)));
+            value = buf.toString();
+        }
+        return value;
+    }
+
+    /**
+     * 金額登録変換処理
+     * @param value
+     */
+    public String dtoFormat(String value){
+        if(value != null){
+            value = value.replace(yen, "").replace(",", "");
+        }
+        return value;
     }
 }

@@ -87,17 +87,24 @@ public class Price extends Activity implements View.OnClickListener {
         inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mainLayout = findViewById(R.id.priceLayout);
 
-        if(dto == null){
-            dto = new PriceDto();
-        }
         editTextPrice = findViewById(R.id.edit_text_price);
         editTextPoint = findViewById(R.id.edit_text_point);
+
+        Intent intent = getIntent();
+        dto = (PriceDto)intent.getSerializableExtra("price_dto");
+
+        if(dto != null){
+            editTextPrice.setText(priceUtil.viewFormat(dto.getPrice().toString()));
+            editTextPoint.setText(pointUtil.viewFormat(dto.getPoint().toString()));
+        }
 
         // リスナーを登録
         editTextPrice.addTextChangedListener((TextWatcher) new TextWatcherUtil(editTextPrice));
         editTextPoint.addTextChangedListener((TextWatcher) new TextWatcherUtil(editTextPoint));
         editTextPrice.setOnClickListener(this);
         editTextPoint.setOnClickListener(this);
+        findViewById(R.id.button1).setOnClickListener(this);
+        findViewById(R.id.button2).setOnClickListener(this);
 
         editTextPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -107,6 +114,11 @@ public class Price extends Activity implements View.OnClickListener {
                         @Override
                         public void run() {
                             priceUtil.moveCursor(-1, editTextPrice);
+                            if(editTextPoint.getError() != null){
+                                if(editTextPoint.getError().toString().equals(getString(R.string.err_07))){
+                                    editTextPoint.setError(null);
+                                }
+                            }
                         }
                     });
                 }
@@ -120,23 +132,17 @@ public class Price extends Activity implements View.OnClickListener {
                         @Override
                         public void run() {
                             pointUtil.moveCursor(-1, editTextPoint);
+                            if(editTextPrice.getError() != null){
+                                if(editTextPrice.getError().toString().equals(getString(R.string.err_06))){
+                                    editTextPrice.setError(null);
+                                }
+                            }
                         }
                     });
                 }
             }
         });
-
-        Intent intent = getIntent();
-        dto = (PriceDto)intent.getSerializableExtra("price_dto");
-
-        if(dto != null){
-            editTextPrice.setText(dto.getPrice().toString());
-        }
-
-        findViewById(R.id.button1).setOnClickListener(this);
-        findViewById(R.id.button2).setOnClickListener(this);
     }
-
 
     /**
      * キー入力された時の処理（IMEによって数値の入力は反応しない）
@@ -144,7 +150,7 @@ public class Price extends Activity implements View.OnClickListener {
      * @param event
      */
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
             priceUtil.moveCursor(-1, editTextPrice);
             pointUtil.moveCursor(-1, editTextPoint);
@@ -190,16 +196,13 @@ public class Price extends Activity implements View.OnClickListener {
 
             case R.id.button2:
                 // ボタン「次へ」がタップされたとき
-                String priceValue = editTextPrice.getText().toString();
-                priceValue =  priceValue.replace(yen, "")
-                        .replace(",", "");
+                String priceValue = priceUtil.dtoFormat(editTextPrice.getText().toString());
                 String priceErr =  ErrorCheckUtil.isNull(priceValue);
 
-                String pointValue = editTextPoint.getText().toString();
+                String pointValue = pointUtil.dtoFormat(editTextPoint.getText().toString());
                 String pointErr = null;
                 if(pointValue != null && !pointValue.isEmpty()){
-                    pointValue =  pointValue.replace(",", "");
-                    pointErr =  ErrorCheckUtil.isNum(pointValue);
+                    pointErr = ErrorCheckUtil.isNum(pointValue);
                 }
                 if(priceErr != null || pointErr != null){
                     if(priceErr != null){
@@ -209,7 +212,14 @@ public class Price extends Activity implements View.OnClickListener {
                         editTextPoint.setError(pointErr);
                     }
                     return;
+                } else {
+                    pointErr = ErrorCheckUtil.isOver(pointValue, priceValue);
+                    if(pointErr != null){
+                        editTextPoint.setError(pointErr);
+                        return;
+                    }
                 }
+
                 if(dto == null){
                     dto = new PriceDto();
                 }
