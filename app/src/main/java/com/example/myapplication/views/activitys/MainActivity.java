@@ -30,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent2);
         });
         sInstance = this;
+
+        Button f = findViewById(R.id.fin);
+        f.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     public static synchronized MainActivity getInstance() {

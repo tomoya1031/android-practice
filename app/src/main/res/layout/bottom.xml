@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="54dip"
+        android:layout_alignParentBottom="true"
+        android:background="#000000"
+        >
+
+        <Button
+            android:id="@+id/fin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dip"
+            android:layout_weight="1"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            app:backgroundTint="#c0c0c0"
+            android:textColor="@color/black"
+            android:drawableTint="#ff0000"
+            android:drawableLeft="@drawable/ic_baseline_cancel_24"
+            android:text="終了" />
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dip"
+            android:layout_weight="1"
+            app:backgroundTint="#c0c0c0"
+            android:textColor="@color/black"
+            android:drawableTint="#f0e68c"
+            android:drawableLeft="@drawable/ic_baseline_arrow_circle_left_24"
+            android:text="戻る"
+            />
+        <Button
+            android:id="@+id/exe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dip"
+            android:layout_weight="1"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            app:backgroundTint="#c0c0c0"
+            android:textColor="@color/black"
+            android:drawableTint="#2DAE4D"
+            android:drawableLeft="@drawable/ic_baseline_check_circle_24"
+            android:text="実行"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bottom"
+        android:orientation="vertical"></LinearLayout>
+
+</RelativeLayout>
