@@ -9,8 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="54dip"
         android:layout_alignParentBottom="true"
-        android:background="#000000"
-        >
+        android:background="#000000">
 
         <Button
             android:id="@+id/fin"
@@ -53,10 +52,10 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@id/bottom"
-        android:orientation="vertical"></LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:layout_above="@id/bottom"-->
+<!--        android:orientation="vertical"></LinearLayout>-->
 
 </RelativeLayout>

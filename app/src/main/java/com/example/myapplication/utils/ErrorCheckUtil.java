@@ -55,8 +55,10 @@ public class ErrorCheckUtil {
      */
     public static String isOver(String point, String price){
         String errMessage = null;
-        if(new BigDecimal(point).multiply(new BigDecimal(100)).compareTo(new BigDecimal(price)) == 1){
-            return errMessage = sInstance.getInstance().getString(R.string.err_04);
+        if(point != null && !point.isEmpty()){
+            if(new BigDecimal(point).multiply(new BigDecimal(100)).compareTo(new BigDecimal(price)) == 1){
+                return errMessage = sInstance.getInstance().getString(R.string.err_04);
+            }
         }
         return errMessage;
     }

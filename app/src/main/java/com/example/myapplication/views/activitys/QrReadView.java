@@ -1,22 +1,29 @@
 package com.example.myapplication.views.activitys;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.myapplication.BuildConfig;
 import com.example.myapplication.HogeService;
 import com.example.myapplication.R;
 
-public class QrReadView extends AppCompatActivity {
+public class QrReadView extends Activity {
 
 
     private HogeService hoge = new HogeService();
+
+    private static final int PERMISSION_WRITE_EX_STR = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,6 @@ public class QrReadView extends AppCompatActivity {
         Button bt = findViewById(R.id.button1);
         switch (BuildConfig.FLAVOR) {
             case "app1":
-                // paid flavorの時の処理
                 View a = findViewById(R.id.barcodeView);
                 TextView textView = findViewById(R.id.textView);
                 Resources res = getResources();
@@ -41,6 +47,19 @@ public class QrReadView extends AppCompatActivity {
             Intent intent = new Intent(getApplication(), MainActivity.class);
             startActivity(intent);
         });
+        //権限をリクエスト
+        if (Build.VERSION.SDK_INT >= 23) {
+            if(ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                Manifest.permission.CAMERA,
+                                Manifest.permission.READ_CONTACTS
+                        },
+                        PERMISSION_WRITE_EX_STR);
+            }
+        }
     }
 
     @Override
@@ -67,6 +86,25 @@ public class QrReadView extends AppCompatActivity {
                 break;
             case "app2":
                 break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permission, grantResults);
+        if (grantResults.length <= 0) {
+            return;
+        }
+        switch (requestCode) {
+            case PERMISSION_WRITE_EX_STR: {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    // 不許可
+                    Toast.makeText(this,
+                            "アプリを起動できません", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            }
+            return;
         }
     }
 

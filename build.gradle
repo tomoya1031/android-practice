@@ -7,3 +7,10 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked'
+}
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-Xlint:unchecked,divzero'
+    options.deprecation = true
+}

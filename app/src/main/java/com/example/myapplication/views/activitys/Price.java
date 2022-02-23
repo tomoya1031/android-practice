@@ -1,6 +1,5 @@
 package com.example.myapplication.views.activitys;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.dto.PriceDto;
@@ -31,7 +32,7 @@ import java.net.HttpURLConnection;
 import java.util.List;
 
 
-public class Price extends Activity implements View.OnClickListener {
+public class Price extends AppCompatActivity implements View.OnClickListener {
 
     private static final PriceUtil priceUtil = new PriceUtil();
 
