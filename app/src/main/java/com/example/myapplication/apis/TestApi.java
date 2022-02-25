@@ -1,5 +1,6 @@
-package com.example.myapplication.models.apis;
+package com.example.myapplication.apis;
 
+import com.example.myapplication.utils.ConnectionUtil;
 import com.example.myapplication.utils.JsonUtil;
 import com.example.myapplication.utils.PropertyUtil;
 
@@ -14,16 +15,14 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Locale;
 
 public class TestApi {
     private String urlGet = "http://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}" ;
     private String urlPost = "今のところ予定なし";
     private PropertyUtil config = new PropertyUtil();
+    private ConnectionUtil connectionUtil = new ConnectionUtil();
 
     public JsonUtil getAPI() throws JSONException {
-        HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         String result = "";
         String str = "";
@@ -32,27 +31,7 @@ public class TestApi {
             //configファイルからAPIKEY取得
             String key = (String) config.get("APIKEY");
             urlGet = urlGet.replace("{API key}", key);
-//            urlGet = urlGet.replace("{city}", "Tokyo,JP");
-            URL url = new URL(urlGet);
-            // 接続先URLへのコネクションを開く．まだ接続されていない
-            urlConnection = (HttpURLConnection) url.openConnection();
-            // 接続タイムアウトを設定
-            urlConnection.setConnectTimeout(10000);
-            // レスポンスデータの読み取りタイムアウトを設定
-            urlConnection.setReadTimeout(10000);
-            // ヘッダーにUser-Agentを設定
-            urlConnection.addRequestProperty("User-Agent", "Android");
-            // ヘッダーにAccept-Languageを設定
-            urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString());
-            // HTTPメソッドを指定
-            urlConnection.setRequestMethod("GET");
-            //リクエストボディの送信を許可しない
-            urlConnection.setDoOutput(false);
-            //レスポンスボディの受信を許可する
-            urlConnection.setDoInput(true);
-            // 通信開始
-            urlConnection.connect();
-
+            HttpURLConnection urlConnection = connectionUtil.connection(urlGet, "GET");
             // レスポンスコードを取得
             json.setStatusCode(urlConnection.getResponseCode());
             // レスポンス結果を取得
@@ -76,33 +55,15 @@ public class TestApi {
 
     //postはとりあえず適当に書いただけ
     public String postAPI(){
-        HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         OutputStream outputStream = null;
         String result = "";
         String str = "";
         try {
-            URL url = new URL(urlPost);
-            // 接続先URLへのコネクションを開く．まだ接続されていない
-            urlConnection = (HttpURLConnection) url.openConnection();
             // リクエストボディに格納するデータ
             String postData = "name=foge&type=fogefoge";
-            // 接続タイムアウトを設定
-            urlConnection.setConnectTimeout(10000);
-            // レスポンスデータの読み取りタイムアウトを設定
-            urlConnection.setReadTimeout(10000);
-            // ヘッダーにUser-Agentを設定
-            urlConnection.addRequestProperty("User-Agent", "Android");
-            // ヘッダーにAccept-Languageを設定
-            urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString());
-            // HTTPメソッドを指定
-            urlConnection.setRequestMethod("POST");
-            //レスポンスボディの受信を許可する
-            urlConnection.setDoInput(true);
-            // リクエストボディの送信を許可する
-            urlConnection.setDoOutput(true);
-            // 通信開始
-            urlConnection.connect();
+
+            HttpURLConnection urlConnection = connectionUtil.connection(urlPost, "POST");
             // リクエストボディの書き込みを行う
             outputStream = urlConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "utf-8"));

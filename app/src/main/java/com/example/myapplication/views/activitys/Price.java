@@ -15,21 +15,34 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.apis.TestApi;
+import com.example.myapplication.apis.TestApi2;
 import com.example.myapplication.dto.PriceDto;
 import com.example.myapplication.dto.WeatherDto;
 import com.example.myapplication.dto.WindDto;
-import com.example.myapplication.models.apis.TestApi;
+import com.example.myapplication.models.apis.WeatherInterface;
+import com.example.myapplication.models.apis.WeatherNews;
 import com.example.myapplication.utils.ErrorCheckUtil;
 import com.example.myapplication.utils.JsonUtil;
 import com.example.myapplication.utils.PointUtil;
 import com.example.myapplication.utils.PriceUtil;
+import com.example.myapplication.utils.PropertyUtil;
+import com.example.myapplication.utils.RetrofitUtil;
 import com.example.myapplication.utils.TextWatcherUtil;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+
 
 
 public class Price extends AppCompatActivity implements View.OnClickListener {
@@ -56,6 +69,8 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
 
     private static TestApi api = new TestApi();
 
+    private static TestApi2 api2 = new TestApi2();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +81,38 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void run() {
                 try {
+                    PropertyUtil config = new PropertyUtil();
+                    String key = (String) config.get("APIKEY");
+                    Retrofit retrofit = new RetrofitUtil().httpConection();
+                    WeatherInterface myService = retrofit.create(WeatherInterface.class);
+                    try {
+                        Response<WeatherNews> res = myService.getWeatherByAppId("London",key).execute();
+                        System.out.println("aa");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Call<WeatherNews> callObject = myService.getWeatherByAppId("London",key);
+                    //コールバック処理
+                    callObject.enqueue(new Callback<WeatherNews>()
+                    {
+                        @Override
+                        public void onResponse(Call<WeatherNews> call, Response<WeatherNews> response) {
+                            if (response.isSuccessful())
+                            {
+                                WeatherNews device = response.body();
+                                System.out.println("a");
+                            }
+                        }
+
+
+                        @Override
+                        public void onFailure(Call<WeatherNews> call, Throwable t) {
+                            System.out.println(t.getLocalizedMessage());
+                        }
+
+                    });
+
                     JsonUtil json = api.getAPI();
                     if(json.getStatusCode() == HttpURLConnection.HTTP_OK){
                         WindDto c = (WindDto) json.convObject(json.getResult(), "wind", WindDto.class);
