@@ -15,13 +15,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-<!--        <service-->
-<!--            android:name=".services.PointService"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true"></service>-->
-<!--        <service-->
-<!--            android:name=".services.PriceService"-->
-<!--            android:exported="false" />-->
 
         <activity
             android:name=".views.activitys.MainActivity"
@@ -42,6 +35,8 @@
         <activity android:name=".views.activitys.Price" />
         <activity android:name=".views.activitys.Point" />
         <activity android:name=".views.activitys.Total" />
+        <activity android:name=".views.activitys.Log" />
+        <activity android:name=".views.activitys.Mask" />
     </application>
 
 </manifest>
