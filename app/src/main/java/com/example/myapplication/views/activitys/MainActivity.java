@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //条件によってセットする
+        setTheme(R.style.Theme_MyApplication_test);
+
         setContentView(R.layout.activity_main);
 
         Button bt1 = findViewById(R.id.button1);

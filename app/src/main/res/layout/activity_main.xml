@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="64dp">
+        tools:layout_editor_absoluteY="64dp"
+        android:background="@color/white">
 
         <Button
             android:id="@+id/button1"
