@@ -1,18 +1,22 @@
 package com.example.myapplication.views.activitys;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.utils.DialogUtil;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static MainActivity sInstance;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +51,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Class<?> c = null;
         switch (view.getId()) {
             case R.id.button1:
-                c = QrRead.class;
-                break;
+                final Handler handler = new Handler();
+                dialog = new Dialog(this);
+                new DialogUtil().showDaialog(dialog);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(getApplication(), QrRead.class);
+                        startActivity(intent);
+                        dialog.dismiss();
+
+                    }
+                }, 5000);
+                return;
             case R.id.button2:
                 c =  Price.class;
                 break;
