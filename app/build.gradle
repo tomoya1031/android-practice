@@ -72,10 +72,10 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "hostName", '"https://test.com/release/"')
         }
-        a {
+        debug{
+            buildConfigField("String", "hostName", '"https://test.com/debug/"')
         }
     }
     compileOptions {
