@@ -37,6 +37,7 @@
         <activity android:name=".views.activitys.Total" />
         <activity android:name=".views.activitys.Log" />
         <activity android:name=".views.activitys.Mask" />
+        <activity android:name=".views.activitys.FileManag" />
     </application>
 
 </manifest>

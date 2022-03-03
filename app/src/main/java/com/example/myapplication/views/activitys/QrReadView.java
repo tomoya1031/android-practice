@@ -55,7 +55,6 @@ public class QrReadView extends Activity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{
                                 Manifest.permission.CAMERA,
-                                Manifest.permission.READ_CONTACTS
                         },
                         PERMISSION_WRITE_EX_STR);
             }

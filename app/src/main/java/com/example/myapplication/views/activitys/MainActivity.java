@@ -16,7 +16,7 @@ import com.example.myapplication.utils.DialogUtil;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static MainActivity sInstance;
-    Dialog dialog;
+    private static Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button bt4 = findViewById(R.id.button4);
         bt4.setOnClickListener(this);
+
+        Button bt5 = findViewById(R.id.button5);
+        bt5.setOnClickListener(this);
 
         sInstance = this;
 
@@ -60,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent intent = new Intent(getApplication(), QrRead.class);
                         startActivity(intent);
                         dialog.dismiss();
-
                     }
                 }, 5000);
                 return;
@@ -72,6 +74,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button4:
                 c = Log.class;
+                break;
+            case R.id.button5:
+                c = FileManag.class;
                 break;
             case R.id.fin:
                 finish();

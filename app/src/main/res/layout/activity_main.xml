@@ -47,6 +47,13 @@
             android:text="ログ画面（未実装）"
             tools:layout_editor_absoluteX="34dp"
             tools:layout_editor_absoluteY="181dp" />
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ファイル管理"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="181dp" />
 
         <include layout="@layout/bottom" android:id="@+id/include_views_2"/>
     </LinearLayout>
