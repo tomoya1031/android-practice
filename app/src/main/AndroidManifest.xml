@@ -38,6 +38,7 @@
         <activity android:name=".views.activitys.Log" />
         <activity android:name=".views.activitys.Mask" />
         <activity android:name=".views.activitys.FileManag" />
+        <activity android:name=".views.activitys.Api" />
     </application>
 
 </manifest>

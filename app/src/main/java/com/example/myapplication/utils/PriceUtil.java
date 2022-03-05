@@ -11,8 +11,6 @@ public class PriceUtil {
 
     private final String yen = "¥";
 
-    private boolean flg = true;
-
     /**
      * テキストに入力された時の処理
      * @param value
