@@ -7,10 +7,12 @@
     xmlns:mask="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:id="@+id/mask_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <br.com.sapereaude.maskedEditText.MaskedEditText
-            android:id="@+id/phone_input"
+            android:id="@+id/date_mask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="________"
@@ -18,7 +20,15 @@
             android:typeface="monospace"
             app:keep_hint="true"
             mask:allowed_chars="1234567890"
-            tools:mask="####年##月##日" />
+            tools:mask="####/##/##" />
+        <EditText
+            android:id="@+id/date_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="____/__/__"
+            android:inputType="phone"
+            android:imeOptions="actionDone" />
+
 
     </LinearLayout>
     <include layout="@layout/bottom" android:id="@+id/include_views_2"/>
