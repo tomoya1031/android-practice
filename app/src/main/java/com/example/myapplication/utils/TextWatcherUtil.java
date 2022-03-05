@@ -12,6 +12,8 @@ public class TextWatcherUtil implements TextWatcher {
 
     private static final PointUtil pointUtil = new PointUtil();
 
+    private static final DateUtil dateUtil = new DateUtil();
+
     private EditText view;
 
     private  String beforeValue;
@@ -22,12 +24,7 @@ public class TextWatcherUtil implements TextWatcher {
     }
 
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        switch (view.getId()) {
-            case R.id.edit_text_price:
-            case R.id.edit_text_point:
-                beforeValue = s.toString();
-                break;
-        }
+        beforeValue = s.toString();
     }
 
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -45,6 +42,9 @@ public class TextWatcherUtil implements TextWatcher {
                 break;
             case R.id.edit_text_point:
                 pointUtil.priceChange(s.toString(), view, beforeValue);
+                break;
+            case R.id.date_input:
+                dateUtil.dateChange(s.toString(), view, beforeValue);
                 break;
         }
         view.addTextChangedListener(this);

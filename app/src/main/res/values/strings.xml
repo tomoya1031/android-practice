@@ -10,6 +10,7 @@
     <string name="err_04">ポイントが金額を上回っています</string>
     <string name="err_06">¥999,999以上入力できません</string>
     <string name="err_07">999,900P以上入力できません</string>
+    <string name="err_08">これ以上入力できません</string>
     <string-array name="temp">
         <item>
             日付：$time\
