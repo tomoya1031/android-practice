@@ -151,6 +151,32 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
     }
 
     /**
+     * 初期フォーカスの処理
+     * @param hasFocus
+     */
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        // EditTextがフォーカスを取得した場合
+        if(hasFocus && editTextPrice == getCurrentFocus()) {
+            new Handler().postDelayed( showKeyboardDelay , 10);
+        }
+    }
+
+    /**
+     * ソフトキーボード表示の遅延実行処理
+     */
+    private final Runnable showKeyboardDelay = new Runnable() {
+        @Override
+        public void run() {
+            // ソフトキーボードを表示
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editTextPrice, 0);
+        }
+    };
+
+    /**
      * 画面のボタンがタップされた時の処理
      * @param view
      */

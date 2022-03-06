@@ -60,8 +60,6 @@ android {
             dimension "tier"
             minSdk 23
 //            applicationId "com.example.app1"
-
-
         }
         app2 {
             dimension "tier"

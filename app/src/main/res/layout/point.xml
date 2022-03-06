@@ -22,7 +22,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="入力してください"
+            android:text="この画面は廃止になった"
             android:gravity="center" />
 
         <TextView

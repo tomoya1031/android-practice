@@ -88,7 +88,7 @@ public class DateUtil {
     }
 
     /**
-     * 日付登録変換処理
+     * 日付登録変換処理（文字のままになりそう）
      * @param value
      */
     public Date dtoFormat(String value){

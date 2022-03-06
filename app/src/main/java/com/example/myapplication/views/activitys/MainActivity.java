@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button bt5 = findViewById(R.id.button5);
         bt5.setOnClickListener(this);
 
+        Button bt6 = findViewById(R.id.button6);
+        bt6.setOnClickListener(this);
+
         sInstance = this;
 
         Button f = findViewById(R.id.fin);
@@ -77,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.button5:
                 c = FileManag.class;
+                break;
+            case R.id.button6:
+                c = Api.class;
                 break;
             case R.id.fin:
                 finish();
