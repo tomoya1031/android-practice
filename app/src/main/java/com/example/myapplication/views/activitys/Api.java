@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.myapplication.R;
 import com.example.myapplication.apis.TestApi;
 import com.example.myapplication.apis.TestApi2;
@@ -95,6 +94,10 @@ public class Api extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

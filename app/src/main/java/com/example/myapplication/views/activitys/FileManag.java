@@ -26,4 +26,9 @@ public class FileManag extends AppCompatActivity {
         FailUtil config = new FailUtil(context);
         config.set("TEST","123dddddd");
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

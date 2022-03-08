@@ -90,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         intent = new Intent(getApplication(), c);
         startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     public static synchronized MainActivity getInstance() {

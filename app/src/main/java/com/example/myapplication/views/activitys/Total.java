@@ -56,6 +56,11 @@ public class Total extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
         startActivity(intent);
+        finish();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

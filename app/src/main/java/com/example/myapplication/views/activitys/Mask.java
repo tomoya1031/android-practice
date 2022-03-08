@@ -112,4 +112,8 @@ public class Mask extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
 }

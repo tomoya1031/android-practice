@@ -23,7 +23,13 @@ public class QrRead extends AppCompatActivity {
         bt.setOnClickListener(v -> {
             Intent intent = new Intent(getApplication(), QrReadView.class);
             startActivity(intent);
+            finish();
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 //    private class Listener implements View.OnClickListener {

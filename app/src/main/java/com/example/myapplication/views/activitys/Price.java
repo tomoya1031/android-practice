@@ -23,9 +23,6 @@ import com.example.myapplication.utils.TextWatcherUtil;
 
 import java.math.BigDecimal;
 
-
-
-
 public class Price extends AppCompatActivity implements View.OnClickListener {
 
     private static final PriceUtil priceUtil = new PriceUtil();
@@ -187,6 +184,7 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
                 // ボタン「終了」がタップされたとき
                 intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);
+                finish();
                 break;
 
             case R.id.button2:
@@ -227,6 +225,7 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
                 intent = new Intent(getApplication(), Total.class);
                 intent.putExtra("price_dto",dto);
                 startActivity(intent);
+                finish();
                 break;
             case R.id.edit_text_price:
                 priceUtil.moveCursor(-1, editTextPrice);
@@ -235,5 +234,10 @@ public class Price extends AppCompatActivity implements View.OnClickListener {
                 pointUtil.moveCursor(-1, editTextPoint);
                 break;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
