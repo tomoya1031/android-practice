@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         //条件によってセットする
         setTheme(R.style.Theme_MyApplication_test);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_home_black_24dp);
 
         setContentView(R.layout.activity_main);
 
@@ -59,13 +61,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button1:
                 final Handler handler = new Handler();
                 dialog = new Dialog(this);
-                new DialogUtil().showDaialog(dialog);
+                new DialogUtil().showDialog(dialog);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         Intent intent = new Intent(getApplication(), QrRead.class);
                         startActivity(intent);
                         dialog.dismiss();
+                        finish();
                     }
                 }, 5000);
                 return;

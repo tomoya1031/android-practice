@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.example.myapplication.R;
 
 public class DialogUtil {
-    public void showDaialog(Dialog dialog){
+    public void showDialog(Dialog dialog){
         dialog.setContentView(R.layout.loding);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,
