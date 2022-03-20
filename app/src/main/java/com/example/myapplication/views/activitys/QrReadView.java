@@ -27,9 +27,11 @@ public class QrReadView extends Activity {
 
     private TextView textView;
 
-    private final Handler handler = new Handler();
+    private Handler handler = new Handler();
 
     private static final int PERMISSION_WRITE_EX_STR = 1;
+
+    private Runnable myRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class QrReadView extends Activity {
         mBarcodeView.decodeSingle(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {
+                handler.removeCallbacks(myRunnable);
 
 //                TextView textView = findViewById(R.id.textView);
                 String[] temp = getResources().getStringArray(R.array.temp);
@@ -69,6 +72,14 @@ public class QrReadView extends Activity {
                         PERMISSION_WRITE_EX_STR);
             }
         }
+        myRunnable = new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        };
+        handler.postDelayed(myRunnable,5000);
+
     }
 
     @Override

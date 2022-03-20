@@ -39,6 +39,8 @@
         <item name="colorOnSecondary">@color/test</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+<!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:statusBarColor">#FF0000</item>-->
         <!-- Customize your theme here. -->
         <!-- ActionBarのスタイル設定 -->
         <item name="android:actionBarStyle">@style/Test</item>
@@ -49,5 +51,6 @@
     <style name="Test" parent="@style/Widget.AppCompat.ActionBar">
         <item name="background">@color/test</item>
         <item name="titleTextStyle">@style/titleTextStyle</item>
+        <item name="icon">@drawable/icon_test</item>
     </style>
 </resources>

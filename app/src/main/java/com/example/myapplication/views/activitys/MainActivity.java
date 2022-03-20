@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +26,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //条件によってセットする
         setTheme(R.style.Theme_MyApplication_test);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_home_black_24dp);
+//        getSupportActionBar().setIcon(R.drawable.ic_home_black_24dp);
+//        getSupportActionBar().setSubtitle("R.drawable.ic_baseline_check_circle_24");
 
         setContentView(R.layout.activity_main);
 
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button bt6 = findViewById(R.id.button6);
         bt6.setOnClickListener(this);
+
+        blinkText(bt6, 1000, 500);
 
         sInstance = this;
 
@@ -103,5 +108,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static synchronized MainActivity getInstance() {
         return sInstance;
+    }
+
+    private void blinkText(Button txtView, long duration, long offset){
+        Animation anm = new AlphaAnimation(0.0f, 1.0f);
+        anm.setDuration(duration);
+        anm.setStartOffset(offset);
+        anm.setRepeatMode(Animation.REVERSE);
+        anm.setRepeatCount(Animation.INFINITE);
+        txtView.startAnimation(anm);
     }
 }
